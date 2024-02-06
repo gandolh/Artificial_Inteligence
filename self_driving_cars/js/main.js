@@ -22,6 +22,8 @@ const graph = graphInfo
     ? Graph.load(graphInfo)
     : new Graph();
 
+const world = new World(graph);
+
 const viewport = new Viewport(myCanvas);
 const graphEditor = new GraphEditor(viewport, graph);
 
@@ -29,7 +31,9 @@ animate();
 
 function animate() {
     viewport.reset();
+    world.generate();
+    world.draw(ctx);
+    ctx.globalAlpha = 0.3;
     graphEditor.display();
-    new Envelope(graph.segments[0], 200, 20).draw(ctx);
     requestAnimationFrame(animate);
 }
