@@ -22,4 +22,12 @@ class Segment{
     includes(point){
         return this.p1.equals(point) || this.p2.equals(point);
     }
+
+    length(){
+        return distance(this.p1, this.p2);
+    }
+
+    directionVector(){
+        return normalize(substract(this.p2, this.p1));
+    }
 }
