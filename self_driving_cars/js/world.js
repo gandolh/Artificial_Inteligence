@@ -58,7 +58,7 @@ class World {
             && this.#isCloseToSomething(p, illegalPolys)
 
             if (keep) {
-                trees.push(p);
+                trees.push(new Tree(p, this.treeSize));
                 tryCount = 0;
             }
             tryCount++;
@@ -86,7 +86,7 @@ class World {
 
     #isOverlappingOtherTree(p, trees) {
         for (const tree of trees)
-            if (distance(tree, p) < this.treeSize) {
+            if (distance(tree.center, p) < this.treeSize) {
                 return true;
             }
         return false;
@@ -156,7 +156,7 @@ class World {
         return bases;
     }
 
-    draw(ctx) {
+    draw(ctx, viewPoint) {
         for (const envelope of this.envelopes) {
             envelope.draw(ctx, { fill: "#BBB", stroke: "#BBB", lineWidth: 15 });
         }
@@ -170,7 +170,7 @@ class World {
         }
 
         for (const tree of this.trees) {
-            tree.draw(ctx, { color: 'rgba(0,0,0,0.5)', size: this.treeSize });
+            tree.draw(ctx, viewPoint);
         }
 
         for (const building of this.buildings) {
