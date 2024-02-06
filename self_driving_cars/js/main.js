@@ -30,5 +30,6 @@ animate();
 function animate() {
     viewport.reset();
     graphEditor.display();
+    new Envelope(graph.segments[0], 200, 20).draw(ctx);
     requestAnimationFrame(animate);
 }
