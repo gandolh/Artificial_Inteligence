@@ -92,6 +92,10 @@ class Polygon {
         return intersectionCount % 2 == 1;
     }
 
+    distanceToPoint(point){
+       return Math.min(...this.segments.map(s => s.distanceToPoint(point)));
+    }
+
     intersectsPoly(poly){
         for(let s1 of this.segments)
             for(let s2 of poly.segments)

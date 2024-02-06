@@ -76,7 +76,10 @@ class Graph {
         this.points.forEach(point => {
             point.draw(ctx);
         });
+    }
 
-
+    hash() {
+        return JSON.stringify(this);
+        
     }
 }
