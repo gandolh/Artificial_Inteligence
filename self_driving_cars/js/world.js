@@ -39,13 +39,8 @@ class World {
             ...this.roadBorders.map(s => [s.p1, s.p2]).flat(),
             ...this.buildings.map(b => b.points).flat()
         ];
-
-        const left = Math.min(...points.map(p => p.x));
-        const right = Math.max(...points.map(p => p.x));
-        const top = Math.min(...points.map(p => p.y));
-        const bottom = Math.max(...points.map(p => p.y));
+        const {top, right, bottom, left} = this.#getCornerPoints(points);
         const trees = [];
-
         const illegalPolys = [
             ...this.buildings,
             ...this.envelopes.map(e => e.poly)
@@ -58,20 +53,9 @@ class World {
                 lerp(bottom, top, Math.random())
             );
 
-            let keep = true;
-            for (const poly of illegalPolys) {
-                if (poly.containsPoint(p)
-                    || poly.distanceToPoint(p) < this.treeSize / 2) {
-                    keep = false;
-                    break;
-                }
-            }
-            if (keep)
-                for (const tree of trees)
-                    if (distance(tree, p) < this.treeSize) {
-                        keep = false;
-                        break;
-                    }
+            let keep = !this.#isInsideOtherStructure(p, illegalPolys) 
+            && !this.#isOverlappingOtherTree(p, trees)
+            && this.#isCloseToSomething(p, illegalPolys)
 
             if (keep) {
                 trees.push(p);
@@ -80,6 +64,41 @@ class World {
             tryCount++;
         }
         return trees;
+    }
+
+    #getCornerPoints(points) {
+        const left = Math.min(...points.map(p => p.x));
+        const right = Math.max(...points.map(p => p.x));
+        const top = Math.min(...points.map(p => p.y));
+        const bottom = Math.max(...points.map(p => p.y));
+        return {top, right, bottom, left};
+    }
+
+    #isInsideOtherStructure(p, illegalPolys) {
+        for (const poly of illegalPolys) {
+            if (poly.containsPoint(p)
+                || poly.distanceToPoint(p) < this.treeSize / 2) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    #isOverlappingOtherTree(p, trees) {
+        for (const tree of trees)
+            if (distance(tree, p) < this.treeSize) {
+                return true;
+            }
+        return false;
+    }
+
+    
+    #isCloseToSomething(p, illegalPolys) {
+        for (const poly of illegalPolys)
+            if (poly.distanceToPoint(p) < this.treeSize * 2)
+                return true;
+
+        return false;
     }
 
     #generateBuildings() {
