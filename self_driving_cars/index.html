@@ -9,14 +9,21 @@
     <h1> World editor </h1>
     <canvas id="myCanvas"></canvas>
     <div id="controls">
-        <button onclick="dispose()">Dispose</button>
-        <button onclick="save()">Save</button>
+        <button class="danger" onclick="dispose()" >Dispose</button>
+        <button class="success" onclick="save()">Save</button>
+        <button class="primary" id="graphBtn" onclick="setMode('graph')"> Graph edit</button>
+        <button class="primary" id="stopBtn" onclick="setMode('stop')"> Add stop</button>
+        <button class="primary" id="crossingBtn" onclick="setMode('crossing')"> Add crossing</button>
         
     </div>
 
     <script src="js/world.js"></script>
-    <script src="js/graphEditor.js"></script>
     <script src="js/viewport.js"></script>
+    <script src="js/markings/stop.js"></script>
+    <script src="js/markings/crossing.js"></script>
+    <script src="js/editors/graphEditor.js"></script>
+    <script src="js/editors/stopEditor.js"></script>
+    <script src="js/editors/crossingEditor.js"></script>
     <script src="js/items/tree.js"></script>
     <script src="js/items/building.js"></script>
     <script src="js/math/utils.js"></script>

@@ -8,32 +8,50 @@ class GraphEditor {
         this.hovered = null;
         this.dragging = false;
         this.mouse = null;
-        this.#addEventListeners();
 
+    }
+
+    enable() {
+        this.#addEventListeners();
+    }
+
+    disable() {
+        this.#removeEventListeners();
+        this.selected = false;
+        this.hovered = false;
     }
 
     // private method
     #addEventListeners() {
-        this.canvas.addEventListener('mousedown', (e) => this.#handleMouseDown(e));
-
-        this.canvas.addEventListener('mousemove', (e) => this.#handleMouseMove(e));
-
-        this.canvas.addEventListener('contextmenu', (e) => {
-            e.preventDefault();
-        });
-
-        this.canvas.addEventListener('mouseup', (e) => {
+        this.boundMouseDown = (e) => this.#handleMouseDown(e);
+        this.boundMouseMove = (e) => this.#handleMouseMove(e);
+        this.boundMouseUp = (e) => {
             this.dragging = false;
-        });
+        };
+        this.boundContextMenu = (e) => {
+            e.preventDefault();
+        }
+
+        this.canvas.addEventListener('mousedown', this.boundMouseDown);
+        this.canvas.addEventListener('mousemove', this.boundMouseMove);
+        this.canvas.addEventListener('mouseup', this.boundMouseUp);
+        this.canvas.addEventListener('contextmenu', this.boundContextMenu);
+    }
+
+    #removeEventListeners() {
+        this.canvas.removeEventListener('mousedown', this.boundMouseDown);
+        this.canvas.removeEventListener('mousemove', this.boundMouseMove);
+        this.canvas.removeEventListener('mouseup', this.boundMouseUp);
+        this.canvas.removeEventListener('contextmenu', this.boundContextMenu);
     }
 
 
     #handleMouseDown(e) {
         if (e.button == 2) { // right click
-           if(this.selected)
+            if (this.selected)
                 this.selected = null;
             else if (this.hovered)
-            this.#removePoint(this.hovered);
+                this.#removePoint(this.hovered);
         }
 
         if (e.button == 0) { // left click

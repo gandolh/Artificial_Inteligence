@@ -4,6 +4,8 @@ class Building{
         this.heightCoef = heightCoef;
     }
 
+    //TODO: Draw roof
+    //TODO: Make buildings fixed size
     draw(ctx, viewPoint){
         const topPoints = this.base.points.map(p =>
             add(p, scale(substract(p, viewPoint), this.heightCoef)));
