@@ -36,7 +36,7 @@ function average(p1, p2) {
 
 function dot(p1, p2) {
     return p1.x * p2.x + p1.y * p2.y;
- }
+}
 
 function add(p1, p2) {
     return new Point(p1.x + p2.x, p1.y + p2.y);
@@ -104,4 +104,11 @@ function normalize(p) {
 
 function magnitude(p) {
     return Math.hypot(p.x, p.y);
+}
+
+function getFake3dPoint(point, viewPoint, height) {
+    const dir = normalize(substract(point, viewPoint));
+    const dist = distance(point, viewPoint);
+    const scaler = Math.atan(dist / 300) / (Math.PI / 2);
+    return add(point, scale(dir, height * scaler));
 }

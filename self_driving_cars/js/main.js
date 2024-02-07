@@ -5,7 +5,6 @@ const ctx = myCanvas.getContext('2d');
 
 const graphString = localStorage.getItem('graph');
 const graphInfo = JSON.parse(graphString);
-console.log(graphInfo);
 const graph = graphInfo
     ? Graph.load(graphInfo)
     : new Graph();
