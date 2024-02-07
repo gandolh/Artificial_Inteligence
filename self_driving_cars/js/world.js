@@ -23,6 +23,24 @@ class World {
         this.generate();
     }
 
+    static load(info){
+        const world = new World(new Graph());
+        world.graph = Graph.load(info.graph);
+        world.roadWidth = info.roadWidth;
+        world.roadRoundness = info.roadRoundness;
+        world.buildingWidth = info.buildingWidth;
+        world.buildingMinLength = info.buildingMinLength;
+        world.spacing = info.spacing;
+        world.treeSize = info.treeSize;
+        world.envelopes = info.envelopes.map(e => Envelope.load(e));
+        world.roadBorders = info.roadBorders.map(s => new Segment(s.p1, s.p2));
+        world.buildings = info.buildings.map(b => Building.load(b));
+        world.trees = info.trees.map(t => Tree.load(t));
+        world.laneGuides = info.laneGuides.map(s => new Segment(s.p1, s.p2));
+        world.markings = info.markings.map(m => Marking.load(m));
+        return world;
+    }
+
     generate() {
         this.envelopes = [];
         for (const segment of this.graph.segments) {

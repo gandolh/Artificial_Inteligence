@@ -1,3 +1,4 @@
+//TODO: Do load method
 class Point {
     constructor(x, y) {
         this.x = x;
