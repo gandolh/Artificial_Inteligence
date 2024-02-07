@@ -79,6 +79,14 @@ function disableEditors() {
     }
 }
 
+function openModal(){
+    modalInfo.style.display = "block";
+}
+
+function closeModal(){
+    modalInfo.style.display = "none";
+}
+
 function animate() {
     viewport.reset();
     if (graph.hash() !== oldGraphHash) {

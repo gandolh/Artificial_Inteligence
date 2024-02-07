@@ -1,21 +1,24 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>World editor</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1> World editor </h1>
+    <div class="title">
+        <button class="infoBtn" onclick="openModal()"> 🛈 </button>
+        <h1> World editor </h1>
+    </div>
     <canvas id="myCanvas"></canvas>
     <div id="controls">
-        <button class="danger" onclick="dispose()" >Dispose</button>
+        <button class="danger" onclick="dispose()">Dispose</button>
         <button class="success" onclick="save()">Save</button>
         <label for="fileInput" class="file-input-label">
             load
-            <input 
-            type="file" id="fileInput" class="file-input"
-            accept=".world" onchange="load(event)">
+            <input type="file" id="fileInput" class="file-input" accept=".world" onchange="load(event)">
         </label>
 
         <button class="primary" id="graphBtn" onclick="setMode('graph')"> Graph edit</button>
@@ -26,7 +29,40 @@
         <button class="primary" id="parkingBtn" onclick="setMode('parking')"> Add parking</button>
         <button class="primary" id="startBtn" onclick="setMode('start')"> Add start point</button>
         <button class="primary" id="targetBtn" onclick="setMode('target')"> Add target</button>
-        
+
+    </div>
+
+    <div id="modalInfo" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>World editor</h2>
+            <p class="category">Actions:</p>
+            <ul>
+                <li>Dispose - clear the canvas</li>
+                <li>Save - saves current state in file and localstorage</li>
+                <li>Load - loads a state from file</li>
+            </ul>
+            <br/>
+            <p class="category controlsCategory">Controls:</p>
+            <p> Left click to add the selected option, right click to delete.</p>
+            <ul>
+                <li>Graph edit - edit the graph</li>
+                <li>Add stop - add a stop sign</li>
+                <li>Add yield - add a yield sign</li>
+                <li>Add crossing - add a crossing</li>
+                <li>Add light - add a light</li>
+                <li>Add parking - add a parking sign</li>
+                <li>Add start point - add a start point for cars</li>
+                <li>Add target - add a target point for cars</li>
+            </ul>
+            <br/>
+            <p class="category"> Interact with canvas:</p>
+            <ul>
+                <li>mouse wheel to zoom out/ zoom in</li>
+                <li>press middle mouse btn (wheel) to pan</li>
+            </ul>
+        </div>
+
     </div>
 
     <script src="js/world.js"></script>
@@ -58,4 +94,5 @@
     <script src="js/primitives/envelope.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>
