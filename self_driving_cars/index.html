@@ -11,6 +11,13 @@
     <div id="controls">
         <button class="danger" onclick="dispose()" >Dispose</button>
         <button class="success" onclick="save()">Save</button>
+        <label for="fileInput" class="file-input-label">
+            load
+            <input 
+            type="file" id="fileInput" class="file-input"
+            accept=".world" onchange="load(event)">
+        </label>
+
         <button class="primary" id="graphBtn" onclick="setMode('graph')"> Graph edit</button>
         <button class="primary" id="stopBtn" onclick="setMode('stop')"> Add stop</button>
         <button class="primary" id="yieldBtn" onclick="setMode('yield')"> Add yield</button>

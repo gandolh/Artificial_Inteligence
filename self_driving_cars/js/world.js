@@ -38,6 +38,8 @@ class World {
         world.trees = info.trees.map(t => Tree.load(t));
         world.laneGuides = info.laneGuides.map(s => new Segment(s.p1, s.p2));
         world.markings = info.markings.map(m => Marking.load(m));
+        world.zoom = info.zoom;
+        world.offset = info.offset;
         return world;
     }
 

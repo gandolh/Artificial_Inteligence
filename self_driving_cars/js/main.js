@@ -5,13 +5,13 @@ const ctx = myCanvas.getContext('2d');
 
 const worldString = localStorage.getItem('world');
 const worldInfo = worldString ? JSON.parse(worldString) : null;
-const world = worldInfo ?
+let world = worldInfo ?
     World.load(worldInfo) :
     new World(new Graph());
 
 const graph = world.graph;
 
-const viewport = new Viewport(myCanvas);
+const viewport = new Viewport(myCanvas, world.zoom, world.offset);
 const tools = {
     graph: { button: graphBtn, editor: new GraphEditor(viewport, graph) },
     stop: { button: stopBtn, editor: new StopEditor(viewport, world) },
@@ -35,8 +35,35 @@ function dispose() {
 }
 
 function save() {
+    world.zoom = viewport.zoom;
+    world.offset = viewport.offset;
+
+    const element = document.createElement('a');
     const json = JSON.stringify(world);
+    element.setAttribute('href', 
+    'data:application/json;charset=utf-8,' 
+    + encodeURIComponent(json));
+    const fileName = "name.world";
+    element.setAttribute('download', fileName);
+
+    element.click();
     localStorage.setItem('world', json);
+}
+
+function load(e){
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e){
+        
+        const jsonData = JSON.parse(e.target.result);
+        world = World.load(jsonData);
+        localStorage.setItem('world', JSON.stringify(world));
+        location.reload();
+
+    }
+    reader.readAsText(file);
+    
 }
 
 function setMode(mode) {
