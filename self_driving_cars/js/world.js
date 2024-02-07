@@ -169,12 +169,15 @@ class World {
             segment.draw(ctx, { color: 'white', width: 4 });
         }
 
-        for (const tree of this.trees) {
-            tree.draw(ctx, viewPoint);
-        }
+        const items = [... this.buildings, ... this.trees];
+        items.sort(
+            (a,b) => 
+            b.base.distanceToPoint(viewPoint) 
+            - a.base.distanceToPoint(viewPoint)
+        )
 
-        for (const building of this.buildings) {
-            building.draw(ctx, viewPoint);
+        for (const item of items) {
+            item.draw(ctx, viewPoint);
         }
     }
 
