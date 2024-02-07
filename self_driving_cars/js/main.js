@@ -1,37 +1,3 @@
-
-
-function dispose() {
-    graphEditor.dispose();
-    world.markings.length = 0;
-}
-
-function save() {
-    const json = JSON.stringify(graph);
-    localStorage.setItem('graph', json);
-}
-
-function setMode(mode) {
-    disableEditors();
-    switch (mode) {
-        case 'graph':
-            graphBtn.classList.remove('disabled');
-            graphEditor.enable();
-            break;
-        case 'stop':
-            stopBtn.classList.remove('disabled');
-            stopEditor.enable();
-            break;
-        case 'crossing':
-            crossingBtn.classList.remove('disabled');
-            crossingEditor.enable();
-            break;
-        default:
-            break;
-    }
-}
-
-
-
 myCanvas.width = 600;
 myCanvas.height = 600;
 
@@ -47,24 +13,45 @@ const graph = graphInfo
 const world = new World(graph);
 
 const viewport = new Viewport(myCanvas);
-const graphEditor = new GraphEditor(viewport, graph);
-const stopEditor = new StopEditor(viewport, world);
-const crossingEditor = new CrossingEditor(viewport, world);
+const tools = {
+    graph: { button: graphBtn, editor: new GraphEditor(viewport, graph) },
+    stop: { button: stopBtn, editor: new StopEditor(viewport, world) },
+    crossing: { button: crossingBtn, editor: new CrossingEditor(viewport, world) },
+    start: { button: startBtn, editor: new StartEditor(viewport, world) },
+    light: { button: lightBtn, editor: new LightEditor(viewport, world) },
+    parking: { button: parkingBtn, editor: new ParkingEditor(viewport, world) },
+    target: { button: targetBtn, editor: new TargetEditor(viewport, world) },
+    yield: { button: yieldBtn, editor: new YieldEditor(viewport, world) }
+}
 
 let oldGraphHash = graph.hash();
 
 setMode('graph');
 animate();
 
-function disableEditors() {
-    graphBtn.classList.add('disabled');
-    graphEditor.disable();
-    stopBtn.classList.add('disabled');
-    stopEditor.disable();
-    crossingBtn.classList.add('disabled');
-    crossingEditor.disable();
- }
 
+function dispose() {
+    tools["graph"].editor.dispose();
+    world.markings.length = 0;
+}
+
+function save() {
+    const json = JSON.stringify(graph);
+    localStorage.setItem('graph', json);
+}
+
+function setMode(mode) {
+    disableEditors();
+    tools[mode].button.classList.remove('disabled');
+    tools[mode].editor.enable();
+}
+
+function disableEditors() {
+    for (const tool of Object.values(tools)) {
+        tool.button.classList.add('disabled');
+        tool.editor.disable();
+    }
+}
 
 function animate() {
     viewport.reset();
@@ -76,8 +63,8 @@ function animate() {
     const viewPoint = scale(viewport.getOffset(), -1)
     world.draw(ctx, viewPoint);
     ctx.globalAlpha = 0.3;
-    graphEditor.display();
-    stopEditor.display();
-    crossingEditor.display();
+    for (const tool of Object.values(tools))
+        tool.editor.display();
+
     requestAnimationFrame(animate);
 }

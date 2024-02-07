@@ -13,17 +13,34 @@
         <button class="success" onclick="save()">Save</button>
         <button class="primary" id="graphBtn" onclick="setMode('graph')"> Graph edit</button>
         <button class="primary" id="stopBtn" onclick="setMode('stop')"> Add stop</button>
+        <button class="primary" id="yieldBtn" onclick="setMode('yield')"> Add yield</button>
         <button class="primary" id="crossingBtn" onclick="setMode('crossing')"> Add crossing</button>
+        <button class="primary" id="lightBtn" onclick="setMode('light')"> Add light</button>
+        <button class="primary" id="parkingBtn" onclick="setMode('parking')"> Add parking</button>
+        <button class="primary" id="startBtn" onclick="setMode('start')"> Add start point</button>
+        <button class="primary" id="targetBtn" onclick="setMode('target')"> Add target</button>
         
     </div>
 
     <script src="js/world.js"></script>
     <script src="js/viewport.js"></script>
+    <script src="js/markings/marking.js"></script>
     <script src="js/markings/stop.js"></script>
+    <script src="js/markings/start.js"></script>
     <script src="js/markings/crossing.js"></script>
+    <script src="js/markings/light.js"></script>
+    <script src="js/markings/parking.js"></script>
+    <script src="js/markings/target.js"></script>
+    <script src="js/markings/yield.js"></script>
+    <script src="js/editors/MarkingEditor.js"></script>
     <script src="js/editors/graphEditor.js"></script>
     <script src="js/editors/stopEditor.js"></script>
     <script src="js/editors/crossingEditor.js"></script>
+    <script src="js/editors/startEditor.js"></script>
+    <script src="js/editors/lightEditor.js"></script>
+    <script src="js/editors/parkingEditor.js"></script>
+    <script src="js/editors/targetEditor.js"></script>
+    <script src="js/editors/yieldEditor.js"></script>
     <script src="js/items/tree.js"></script>
     <script src="js/items/building.js"></script>
     <script src="js/math/utils.js"></script>
