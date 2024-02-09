@@ -2,8 +2,29 @@ body{
     margin: 0;
     background-color: darkgray;
     overflow: hidden;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
 }
+
+#verticalButtons{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+button{
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+button:hover{
+    background-color: #0d6efd;
+    color: white;
+}
+
 
 #carCanvas{
     background-color: lightgray;

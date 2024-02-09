@@ -115,7 +115,7 @@ class Car {
         return points;
     }
 
-    draw(ctx, { color = 'black' } = {}) {
+    draw(ctx, { color = 'black', drawSensor = false } = {}) {
         if (this.damaged)
             ctx.fillStyle = 'gray';
         else ctx.fillStyle = color;
@@ -124,7 +124,7 @@ class Car {
         for (let i = 1; i < this.polygon.length; i++)
             ctx.lineTo(this.polygon[i].x, this.polygon[i].y)
         ctx.fill();
-        if (this.sensor)
+        if (this.sensor && drawSensor)
             this.sensor.draw(ctx);
     }
 
