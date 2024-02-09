@@ -128,6 +128,13 @@ class Car {
             this.sensor.draw(ctx);
     }
 
+    getPolygon() {
+        if(this.polygon)
+            return this.polygon;
+        this.polygon = this.#createPolygon();
+        return this.polygon;
+    }
+
     moveUp() {
         this.speed += this.acceleration;
     }
