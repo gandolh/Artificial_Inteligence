@@ -1,19 +1,14 @@
-# Computer-Vision
-You can run the code using Google Colab free tier with gpu / cpu. 
-# Requirements for local runtime:
-- install nvidia driver for cuda
-    - https://www.nvidia.com/Download/index.aspx
-    - For more read: https://docs.nvidia.com/cuda/wsl-user-guide/index.html
-# install anaconda and run from anaconda prompt
-- conda create -n gpu2 python=3.10
-- conda info -e
-- conda activate gpu2
-- pip install tensorflow-gpu==2.10.0
-
-# Resources:
-- https://docs.nvidia.com/cuda/wsl-user-guide/index.html
-- https://stackoverflow.com/questions/51002045/how-to-make-jupyter-notebook-to-run-on-gpu
-- https://www.tensorflow.org/install/pip
-- https://www.tensorflow.org/install/source_windows#tested_build_configurations
-- https://docs.anaconda.com/anaconda/install/windows/
-- https://medium.com/analytics-vidhya/tensorflow-gpu-installation-with-cuda-cudnn-40fbd4477e7
+# About this repo
+## Fully_Convolution_Network
+This is a neural network that does road segmentation. The code was written in Google colaboratory, but you can run it locally too.
+## GoogleColabSample
+This contains a jupyter notebook with useful operations for Google colaboratory. 
+For example, mounting google drive, installing libraries, accesing file storage or displaying information about the hardware you use in colab.
+## NeuralNetworkFromScratch
+Made a simple neural network that predicts numbers from mnist.It is implemented from scratch using only numpy, pandas and matplotlib. I followed the explanation from Samson Zhang (specially thanks)
+It uses RelU as activation function and softmax for clasifying the results.
+## self driving cars
+This project uses canvas element and draws everything with JavaScript. In this project i used a neural network with genetic algorithm to learn how to drive. It starts with 100 cars, when the population is less than a procent it takes the best
+car that drived the most and mutates it.
+# Graph editor
+This project let you draw a network of roads. This will be usefull when integrated with self driving car to create a city with autonomous drivings.
